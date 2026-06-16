@@ -70,7 +70,7 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .game-card.live-card{border-color:var(--red);box-shadow:0 0 0 1.5px #DC262618}
 .game-card.finished-card{background:var(--surface2)}
 .game-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:6px}
-#jogos-list{display:grid;grid-template-columns:1fr;gap:0 14px}
+#jogos-list{display:grid;grid-template-columns:1fr;gap:0 14px;padding-top:96px}
 @media(min-width:820px){#jogos-list{grid-template-columns:repeat(2,minmax(0,1fr))}.day-label{grid-column:1/-1}.game-card{margin-bottom:14px}}
 .teams-line{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;margin-bottom:10px}
 .team-txt{font-size:13.5px;font-weight:700;line-height:1.25;min-width:0;display:flex;align-items:center;gap:7px}
@@ -108,11 +108,11 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .comment-form{display:flex;gap:7px;margin-top:9px}
 .comment-form input{font-size:13px;padding:8px 10px}
 .comment-send{border:none;border-radius:10px;padding:0 12px;background:var(--green);color:#fff;font-size:12px;font-weight:800;font-family:inherit}
-.game-tools{position:sticky;top:0;z-index:80;grid-column:1/-1;align-self:start;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);margin:0 -1rem 8px;padding:8px 1rem 9px;border-bottom:1px solid var(--border);box-shadow:0 8px 20px rgba(0,0,0,.04)}
+.game-tools{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:220;width:100%;max-width:1120px;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);margin:0;padding:8px 1rem 9px;border-bottom:1px solid var(--border);box-shadow:0 8px 20px rgba(0,0,0,.06)}
 .filter-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.filter-tabs::-webkit-scrollbar{display:none}
 .filter-chip{border:1.5px solid var(--border);background:var(--surface);color:var(--text2);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800;white-space:nowrap;font-family:inherit;cursor:pointer}.filter-chip.active{background:var(--green);border-color:var(--green);color:#fff}
 .filter-fields{display:grid;grid-template-columns:minmax(150px,1fr) 112px auto;gap:6px;align-items:center}.filter-fields input,.filter-fields select{height:32px;border:1.5px solid var(--border);border-radius:9px;padding:6px 8px;font-size:12px;font-family:inherit;background:var(--surface);color:var(--text)}.filter-fields select{cursor:pointer}.filter-fields .standings-btn{height:32px;width:auto;margin:0;padding:0 10px;border:1.5px solid var(--green);background:var(--green-pale);color:var(--green-d);border-radius:9px;font-size:11px;font-weight:900;white-space:nowrap;font-family:inherit;cursor:pointer}
-@media(max-width:720px){.filter-fields{grid-template-columns:1fr 1fr}.filter-fields .standings-btn{grid-column:1 / -1;width:100%}}
+@media(max-width:720px){#jogos-list{padding-top:126px}.filter-fields{grid-template-columns:1fr 1fr}.filter-fields .standings-btn{grid-column:1 / -1;width:100%}}
 .empty-state{grid-column:1/-1;background:var(--surface2);border:1.5px dashed var(--border);border-radius:14px;padding:18px;color:var(--text2);font-size:13px;text-align:center}
 .standings-grid{display:grid;grid-template-columns:1fr;gap:12px;max-height:68vh;overflow:auto;padding-right:2px}@media(min-width:760px){.standings-grid{grid-template-columns:1fr 1fr}}
 .group-table{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}.group-table-title{font-family:'Syne',sans-serif;font-weight:900;padding:10px 12px;background:var(--surface2)}
