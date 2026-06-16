@@ -108,7 +108,7 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .comment-form{display:flex;gap:7px;margin-top:9px}
 .comment-form input{font-size:13px;padding:8px 10px}
 .comment-send{border:none;border-radius:10px;padding:0 12px;background:var(--green);color:#fff;font-size:12px;font-weight:800;font-family:inherit}
-.game-tools{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);margin:0 -1rem 8px;padding:8px 1rem 9px;border-bottom:1px solid var(--border)}
+.game-tools{position:sticky;top:0;z-index:80;grid-column:1/-1;align-self:start;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);margin:0 -1rem 8px;padding:8px 1rem 9px;border-bottom:1px solid var(--border);box-shadow:0 8px 20px rgba(0,0,0,.04)}
 .filter-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.filter-tabs::-webkit-scrollbar{display:none}
 .filter-chip{border:1.5px solid var(--border);background:var(--surface);color:var(--text2);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800;white-space:nowrap;font-family:inherit;cursor:pointer}.filter-chip.active{background:var(--green);border-color:var(--green);color:#fff}
 .filter-fields{display:grid;grid-template-columns:minmax(150px,1fr) 112px auto;gap:6px;align-items:center}.filter-fields input,.filter-fields select{height:32px;border:1.5px solid var(--border);border-radius:9px;padding:6px 8px;font-size:12px;font-family:inherit;background:var(--surface);color:var(--text)}.filter-fields select{cursor:pointer}.filter-fields .standings-btn{height:32px;width:auto;margin:0;padding:0 10px;border:1.5px solid var(--green);background:var(--green-pale);color:var(--green-d);border-radius:9px;font-size:11px;font-weight:900;white-space:nowrap;font-family:inherit;cursor:pointer}
@@ -895,7 +895,7 @@ function renderGrpContent(){
   let html=`<div class="ge-pos-labels"><span>1º</span><span>2º</span><span>3º</span><span>4º</span></div>`;
   teams.forEach(team=>{
     const myPos=ps[team];
-    html+=`<div class="ge-team-row"><div class="ge-team-info"><span class="flag">${FLAGS[team]||'🏳️'}</span><span class="tname">${team}</span></div><div class="ge-pos-group">${[0,1,2,3].map(pos=>{const cls=pos<2?'ge-radio':pos===2?'ge-radio third':'ge-radio elim',sel=myPos===pos?' sel':'';return`<div class="${cls}${sel}" onclick="setGroupPos('${activeGrpTab}','${team.replace(/'/g,"\\'")}',${pos})">${myPos===pos?'✓':''}</div>`;}).join('')}</div></div>`;
+    html+=`<div class="ge-team-row"><div class="ge-team-info"><span class="flag-ball" style="width:26px;height:26px">${flagHtml(team)}</span><span class="tname">${team}</span></div><div class="ge-pos-group">${[0,1,2,3].map(pos=>{const cls=pos<2?'ge-radio':pos===2?'ge-radio third':'ge-radio elim',sel=myPos===pos?' sel':'';return`<div class="${cls}${sel}" onclick="setGroupPos('${activeGrpTab}','${team.replace(/'/g,"\\'")}',${pos})">${myPos===pos?'✓':''}</div>`;}).join('')}</div></div>`;
   });
   html+=`<button class="ge-shuffle" onclick="shuffleGroup('${activeGrpTab}')">🔀 Sorteio aleatório</button>`;
   document.getElementById('grp-content').innerHTML=html;
@@ -905,7 +905,7 @@ function toggleThird(g){let q=getThirdsQ();q=q.includes(g)?q.filter(x=>x!==g):(q
 function renderThirds(){
   const q=getThirdsQ();
   let html=`<div class="ge-thirds-box"><div class="ge-thirds-title">${q.length}/8 terceiros selecionados — toque para marcar</div>`;
-  GROUPS.forEach(g=>{const team=getTeamByPos(g,2),checked=q.includes(g);html+=`<div class="ge-thirds-row" onclick="${team?`toggleThird('${g}')`:''}"><div class="ge-radio third${checked?' sel':''}" style="width:22px;height:22px">${checked?'✓':''}</div><span class="grp-tag">${g}</span><span class="flag" style="${!team?'opacity:.35':''}">${team?FLAGS[team]||'🏳️':'·'}</span><span style="${!team?'opacity:.35':''}">${team||'— selecione o 3º —'}</span></div>`;});
+  GROUPS.forEach(g=>{const team=getTeamByPos(g,2),checked=q.includes(g);html+=`<div class="ge-thirds-row" onclick="${team?`toggleThird('${g}')`:''}"><div class="ge-radio third${checked?' sel':''}" style="width:22px;height:22px">${checked?'✓':''}</div><span class="grp-tag">${g}</span>${team?`<span class="flag-ball" style="width:24px;height:24px;${!team?'opacity:.35':''}">${flagHtml(team)}</span>`:`<span style="width:24px;text-align:center;color:var(--text3)">·</span>`}<span style="${!team?'opacity:.35':''}">${team||'— selecione o 3º —'}</span></div>`;});
   html+='</div>';document.getElementById('thirds-content').innerHTML=html;
 }
 
