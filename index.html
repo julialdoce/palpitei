@@ -16,6 +16,40 @@
   --border:#E4E2DA;--text:#18181A;--text2:#6B6B72;--text3:#A8A8B0;
   --radius:14px;--shadow:0 2px 12px rgba(0,0,0,.07);
 }
+[data-theme=dark]{
+  --bg:#0B0F14;--surface:#121922;--surface2:#17212C;
+  --border:#293544;--text:#F7F9FC;--text2:#C2CBD6;--text3:#8792A1;
+  --green:#58C783;--green-d:#88E0A8;--green-pale:#0D3024;--green-border:#286548;
+  --blue:#6EA8FE;--blue-d:#A8C8FF;--blue-pale:#10243D;
+  --gold:#F6C85F;--gold-pale:#332510;--red:#EF4444;
+  --shadow:0 10px 28px rgba(0,0,0,.34);
+}
+[data-theme=dark] body{background:var(--bg);color:var(--text)}
+[data-theme=dark] .site-header,[data-theme=dark] .bottom-nav{background:rgba(11,15,20,.96);border-color:var(--border);box-shadow:0 10px 30px rgba(0,0,0,.32)}
+[data-theme=dark] .game-card,[data-theme=dark] .card,[data-theme=dark] .jersey-card,[data-theme=dark] .modal-box,[data-theme=dark] .setup-card,[data-theme=dark] .public-picks{background:var(--surface);border-color:var(--border);box-shadow:var(--shadow)}
+[data-theme=dark] .game-card.finished-card{background:#111C18;border-color:#27523E}
+[data-theme=dark] input,[data-theme=dark] select,[data-theme=dark] textarea{background:#0F1620;color:var(--text);border-color:var(--border)}
+[data-theme=dark] input::placeholder,[data-theme=dark] textarea::placeholder{color:var(--text3)}
+[data-theme=dark] .filter-chip,[data-theme=dark] .profile-pill,[data-theme=dark] .dark-toggle{background:#121A24;color:var(--text2);border-color:var(--border)}
+[data-theme=dark] .filter-chip:hover,[data-theme=dark] .profile-pill:hover,[data-theme=dark] .dark-toggle:hover{background:#1B2633;color:var(--text)}
+[data-theme=dark] .filter-chip.active,[data-theme=dark] .standings-btn{background:var(--green);border-color:var(--green);color:#07130D}
+[data-theme=dark] .public-pick-row{border-bottom-color:#202A36}
+[data-theme=dark] .public-pick-row.hit-winner{background:#102B46;color:var(--text)}
+[data-theme=dark] .public-pick-row.hit-exact{background:#0E3424;color:var(--text)}
+[data-theme=dark] .badge.blue{background:#183A5E;color:#B9DBFF;border:1px solid #2E6BA8}
+[data-theme=dark] .badge.green{background:#123D2A;color:#BDF7D0;border:1px solid #2F8A5B}
+[data-theme=dark] .badge.gray{background:#202A36;color:#D6DEE8;border:1px solid #344255}
+[data-theme=dark] .status-label,[data-theme=dark] .result-badge{color:#BBF7D0;background:#103B2A;border-color:#2B6F4F}
+[data-theme=dark] .team-circle{background:#121A24;border-color:#2E3B4C;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+[data-theme=dark] .group-table{background:#111820;border-color:#2A3747}
+[data-theme=dark] .group-table-title,[data-theme=dark] .group-row.head{background:#17212C;color:#B7C3D0}
+[data-theme=dark] .group-row{border-top-color:#263241}
+[data-theme=dark] .group-row.qual{background:#0E3A28;color:#EAFDF0}
+[data-theme=dark] .group-row.third{background:#332510;color:#FFE8B3}
+[data-theme=dark] .toast{background:#101821;color:#F7F9FC;border-color:#2C3A4A;box-shadow:0 14px 34px rgba(0,0,0,.42)}
+[data-theme=dark] .toast.error{background:#3A1618;color:#FFE7E7;border-color:#7F1D1D}
+[data-theme=dark] .toast.success{background:#113522;color:#D8FFE6;border-color:#26784E}
+[data-theme=dark] .toast.warning{background:#3A2A12;color:#FFE8B3;border-color:#8A651F}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;min-height:100vh;-webkit-font-smoothing:antialiased}
 .app{max-width:1180px;width:100%;margin:0 auto;background:var(--surface);min-height:100vh;padding-bottom:82px;position:relative}
 @media(min-width:540px){
@@ -74,7 +108,7 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
   max-width:1120px;margin:0 auto;width:100%;
   gap:8px;
 }
-.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;min-width:0}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;min-width:0;justify-content:flex-end}.header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 #last-update{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
 .page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;flex-shrink:0}
 .page-title em{color:var(--green);font-style:normal}
@@ -95,6 +129,9 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .filter-fields .standings-btn{height:36px;width:auto;margin:0;padding:0 14px;border:1.5px solid var(--green);background:var(--green);color:#fff;border-radius:9px;font-size:12px;font-weight:700;white-space:nowrap;font-family:inherit;cursor:pointer;transition:background .15s;flex-shrink:0}
 .filter-fields .standings-btn:hover{background:var(--green-d);border-color:var(--green-d)}
 @media(max-width:540px){
+  .site-header-top{padding:10px 0 7px}
+  .page-title{font-size:20px}
+  .header-right{gap:6px}
   .filter-chip{padding:0 11px;font-size:11px;height:30px}
   .filter-fields{grid-template-columns:1fr 1fr}
   .filter-fields input,.filter-fields select{height:32px;font-size:12px;padding:4px 8px}
@@ -102,6 +139,13 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
   .filter-fields .standings-btn{grid-column:1 / -1;width:100%;height:36px}
   #last-update{display:none}
   .profile-pill{padding:5px 10px;font-size:11px}
+  .dark-toggle{width:32px;height:32px;font-size:14px}
+  .header-actions{gap:5px}
+}
+@media(max-width:360px){
+  .page-title{font-size:18px}
+  .profile-pill{padding:5px 8px;max-width:82px;overflow:hidden;text-overflow:ellipsis}
+  .dark-toggle{width:30px;height:30px}
 }
 
 /* sem mais sticky — o antigo .game-tools virou parte do header */
@@ -176,9 +220,29 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .comment-form input{font-size:13px;padding:8px 10px}
 .comment-send{border:none;border-radius:10px;padding:0 12px;background:var(--green);color:#fff;font-size:12px;font-weight:800;font-family:inherit}
 .empty-state{grid-column:1/-1;background:var(--surface2);border:1.5px dashed var(--border);border-radius:14px;padding:18px;color:var(--text2);font-size:13px;text-align:center}
-.standings-grid{display:grid;grid-template-columns:1fr;gap:12px;max-height:68vh;overflow:auto;padding-right:2px}@media(min-width:760px){.standings-grid{grid-template-columns:1fr 1fr}}
-.group-table{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}.group-table-title{font-family:'Syne',sans-serif;font-weight:900;padding:10px 12px;background:var(--surface2)}
-.group-row{display:grid;grid-template-columns:28px minmax(0,1fr) 36px 36px 36px 42px;gap:6px;align-items:center;padding:8px 10px;border-top:1px solid var(--bg);font-size:12px}.group-row.head{color:var(--text3);font-weight:900;text-transform:uppercase;font-size:10px}.group-row.qual{background:var(--green-pale)}.group-row.third{background:#FFF7ED}.group-team{display:flex;align-items:center;gap:6px;min-width:0;font-weight:800}.group-team span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.standings-modal{max-width:760px;max-height:calc(100dvh - 28px);display:flex;flex-direction:column;overflow:hidden}
+.standings-titlebar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-shrink:0}
+.standings-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:900;line-height:1.15;color:var(--text)}
+.standings-close{border:none;background:none;font-size:22px;color:var(--text3);cursor:pointer;line-height:1;padding:2px 0 2px 8px;flex-shrink:0}
+.standings-grid{display:grid;grid-template-columns:1fr;gap:12px;max-height:68vh;overflow:auto;padding-right:4px;min-height:0;-webkit-overflow-scrolling:touch}
+@media(min-width:760px){.standings-grid{grid-template-columns:1fr 1fr}}
+.group-table{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}
+.group-table-title{font-family:'Syne',sans-serif;font-weight:900;padding:10px 12px;background:var(--surface2);color:var(--text)}
+.group-row{display:grid;grid-template-columns:26px minmax(0,1fr) 32px 32px 32px 38px;gap:5px;align-items:center;padding:8px 9px;border-top:1px solid var(--bg);font-size:12px;color:var(--text)}
+.group-row.head{color:var(--text3);font-weight:900;text-transform:uppercase;font-size:10px}
+.group-row.qual{background:var(--green-pale)}
+.group-row.third{background:#FFF7ED;color:#7A5000}
+.group-team{display:flex;align-items:center;gap:6px;min-width:0;font-weight:800}
+.group-team span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:540px){
+  .standings-modal{max-height:calc(100dvh - 10px);padding:1.25rem 1rem 1.5rem;border-radius:18px 18px 0 0}
+  .standings-title{font-size:18px}
+  .standings-grid{max-height:calc(100dvh - 142px);gap:10px;padding-right:2px}
+  .group-table-title{padding:9px 11px}
+  .group-row{grid-template-columns:22px minmax(0,1fr) 28px 28px 28px 34px;gap:4px;padding:8px 8px;font-size:11px}
+  .group-row.head{font-size:9px}
+  .group-team .flag-ball{width:22px!important;height:22px!important}
+}
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;z-index:300;padding:0}
 @media(min-width:540px){.modal-overlay{align-items:center;padding:16px}}
 .modal-box{background:var(--surface);border-radius:24px 24px 0 0;padding:1.5rem 1.5rem 2rem;width:100%;max-width:440px;box-shadow:0 -8px 40px rgba(0,0,0,.15);animation:slide-up .25s cubic-bezier(.34,1.1,.64,1) both}
@@ -262,10 +326,47 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .jersey-modal-img{width:150px;height:168px;object-fit:contain;display:block;filter:drop-shadow(0 10px 16px rgba(0,0,0,.14));margin:0 auto}
 .jersey-color-chip{width:100%;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.04em;margin-top:6px}
 @media(max-width:420px){.jersey-card{min-height:164px;padding:12px 8px}.jersey-img-wrap{height:84px}.jersey-modal-img{width:128px;height:146px}.jersey-color-chip{height:34px;font-size:10px}.jersey-team-name{font-size:10.5px}}
+
+/* ── DARK MODE TOGGLE ─── */
+.dark-toggle{background:var(--surface);border:1.5px solid var(--border);border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;flex-shrink:0;transition:all .2s;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer}
+.dark-toggle:hover{background:var(--surface2)}
+
+/* ── POINTS ANIMATION ─── */
+.pts-splash{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.5);z-index:999;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0}
+.pts-splash.show{animation:pts-pop .9s cubic-bezier(.34,1.56,.64,1) forwards}
+.pts-splash-num{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;line-height:1;text-shadow:0 4px 24px rgba(0,0,0,.18)}
+.pts-splash-label{font-size:16px;font-weight:700;letter-spacing:.05em;opacity:.85}
+@keyframes pts-pop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+  25%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
+  55%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  80%{opacity:1;transform:translate(-50%,-60%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-80%) scale(.9)}
+}
+
+/* ── TOAST/BANNER ─── */
+.toast-wrap{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:440px}
+.toast{background:var(--text);color:var(--surface);border:1px solid transparent;border-radius:14px;padding:11px 14px;font-size:13px;font-weight:700;box-shadow:0 10px 28px rgba(0,0,0,.20);pointer-events:all;display:flex;align-items:center;gap:10px;animation:toast-in .35s cubic-bezier(.34,1.2,.64,1) both;width:100%;line-height:1.35}
+.toast.warning{background:#C9911A;color:#fff}
+.toast.error{background:var(--red);color:#fff}
+.toast.success{background:var(--green);color:#fff}
+.toast-close{margin-left:auto;background:transparent;border:none;color:inherit;font-size:18px;opacity:.7;padding:0 2px;flex-shrink:0}
+@keyframes toast-in{from{opacity:0;transform:translateY(-12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* ── VER QUEM REAGIU ─── */
+.reaction-who-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:260px;overflow-y:auto}
+.reaction-who-head{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.reaction-who-emoji{font-size:34px;line-height:1;display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0}
+.reaction-who-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:0;color:var(--text)}
+.reaction-who-count{font-size:12px;color:var(--text2);margin-top:1px}
+.reaction-who-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.reaction-who-row:last-child{border-bottom:none}
 </style>
 </head>
 <body>
 <div class="app">
+<div class="toast-wrap" id="toast-wrap"></div>
+<div class="pts-splash" id="pts-splash"><div class="pts-splash-num" id="pts-num"></div><div class="pts-splash-label" id="pts-label"></div></div>
 
 <div id="scr-setup" class="screen active">
   <div class="setup-wrap">
@@ -285,7 +386,7 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
   <div class="site-header">
     <div class="site-header-top">
       <span class="page-title">Palpi<em>tei</em></span>
-      <div class="header-right"><span id="last-update"></span><button class="profile-pill" onclick="openProfile(S.player&&S.player.id)">Meu perfil</button></div>
+      <div class="header-right"><span id="last-update"></span><div class="header-actions"><button class="profile-pill" onclick="openProfile(S.player&&S.player.id)">Meu perfil</button><button class="dark-toggle" id="dark-btn" onclick="toggleDark()" title="Modo escuro" aria-label="Alternar modo escuro">🌙</button></div></div>
     </div>
     <div class="site-header-filters" id="site-filters">
       <!-- preenchido por renderGameTools() -->
@@ -618,7 +719,7 @@ function leaderId(){const rows=rankingRows();return rows[0]&&rows[0].id;}
 function playerStats(id){const ps=(S.allPalpites||{})[id]||{};let exact=0,winner=0,errors=0,streak=0;const played=GAMES.filter(g=>S.oficiais[g.id]).sort((a,b)=>getGameDT(a)-getGameDT(b));played.forEach(g=>{const pred=ps[g.id],sent=isSubmittedPred(pred),pts=pointsFor(pred,S.oficiais[g.id]);if(sent&&pts===3)exact++;else if(sent&&pts===1)winner++;else if(sent&&pts===0)errors++;});for(let i=played.length-1;i>=0;i--){const pred=ps[played[i].id],pts=pointsFor(pred,S.oficiais[played[i].id]);if(isSubmittedPred(pred)&&pts>0)streak++;else break;}const rows=rankingRows();return{pts:totalPtsFor(id),exact,winner,errors,position:Math.max(1,rows.findIndex(r=>r.id===id)+1),streak};}
 function totalPtsFor(playerId){let t=0;const ps=(S.allPalpites||{})[playerId]||{};GAMES.forEach(g=>{const o=S.oficiais[g.id];if(o)t+=pointsFor(ps[g.id],o);});return t;}
 
-async function setup(auto=false){const name=(document.getElementById('player-name').value||'').trim();const email=(document.getElementById('player-email').value||'').trim().toLowerCase();if(!name||!email||!email.includes('@')){showSetupStatus('Coloca seu nome e um email valido para entrar.',true);return;}const id=playerIdFromEmail(email);S.player={id,name,email};saveLocalPlayer();showSetupStatus('Conectando no Firebase...');try{await fbPatch('players/'+id,{name,updatedAt:Date.now()});await syncFromFirebase();document.getElementById('scr-setup').classList.remove('active');document.getElementById('scr-main').classList.add('active');document.getElementById('last-update').textContent='Conectado como '+firstName(displayName(id));renderAll();autoFetchMissingResults();}catch(e){showSetupStatus('Nao consegui conectar. Confere as regras do Realtime Database.',true);console.error(e);}}
+async function setup(auto=false){const name=(document.getElementById('player-name').value||'').trim();const email=(document.getElementById('player-email').value||'').trim().toLowerCase();if(!name||!email||!email.includes('@')){showSetupStatus('Coloca seu nome e um email valido para entrar.',true);return;}const id=playerIdFromEmail(email);S.player={id,name,email};saveLocalPlayer();showSetupStatus('Conectando no Firebase...');try{await fbPatch('players/'+id,{name,updatedAt:Date.now()});await syncFromFirebase();document.getElementById('scr-setup').classList.remove('active');document.getElementById('scr-main').classList.add('active');document.getElementById('last-update').textContent='Conectado como '+firstName(displayName(id));renderAll();autoFetchMissingResults();setTimeout(checkOpeningAlerts,1200);}catch(e){showSetupStatus('Nao consegui conectar. Confere as regras do Realtime Database.',true);console.error(e);}}
 
 function showTab(t){S.tab=t;['jogos','chave','camisas','ranking'].forEach(v=>{document.getElementById('view-'+v).style.display=v===t?'block':'none';document.getElementById('nb-'+v).classList.toggle('active',v===t);});
   // mostra filtros apenas na aba jogos
@@ -650,10 +751,10 @@ function publicPicksFor(gameId){return Object.entries(S.allPalpites||{}).map(([i
 const REACTION_TYPES=[['fire','🔥','ousado'],['laugh','😂','viajou'],['brain','🧠','genio'],['salt','🧂','clubista'],['eyes','👀','suspeito'],['cold','🥶','frio e calculista'],['aff','🙄','AFFF']];
 function reactionCounts(gameId,targetId){const base=(((S.reactions||{})[gameId]||{})[targetId]||{});const out={};REACTION_TYPES.forEach(([k])=>out[k]=base[k]?Object.keys(base[k]).length:0);return out;}
 function myReactionOn(gameId,targetId,k){return !!(S.player&&S.reactions&&S.reactions[gameId]&&S.reactions[gameId][targetId]&&S.reactions[gameId][targetId][k]&&S.reactions[gameId][targetId][k][S.player.id]);}
-function reactionSummaryHtml(gameId,targetId){const counts=reactionCounts(gameId,targetId),items=REACTION_TYPES.filter(([k])=>counts[k]>0);return items.length?`<div class="reaction-summary">${items.map(([k,e])=>`<span class="reaction-chip">${e} ${counts[k]}</span>`).join('')}</div>`:'';}
+function reactionSummaryHtml(gameId,targetId){const counts=reactionCounts(gameId,targetId),items=REACTION_TYPES.filter(([k])=>counts[k]>0);return items.length?`<div class="reaction-summary">${items.map(([k,e])=>`<span class="reaction-chip" style="cursor:pointer" onclick="event.stopPropagation();openReactionWhoModal(${gameId},'${targetId}','${k}')">${e} ${counts[k]}</span>`).join('')}</div>`:'';}
 function reactionPickerHtml(gameId,targetId){return `<div class="reaction-picker">${REACTION_TYPES.map(([k,e,l])=>`<button class="reaction-btn ${myReactionOn(gameId,targetId,k)?'on':''}" title="${l}" onclick="chooseReaction(${gameId},'${targetId}','${k}')">${e}</button>`).join('')}</div>`;}
 async function toggleReaction(gameId,targetId,k){if(!S.player)return;const path='reactions/'+gameId+'/'+targetId+'/'+k+'/'+S.player.id;const on=myReactionOn(gameId,targetId,k);if(!S.reactions[gameId])S.reactions[gameId]={};if(!S.reactions[gameId][targetId])S.reactions[gameId][targetId]={};if(!S.reactions[gameId][targetId][k])S.reactions[gameId][targetId][k]={};if(on){delete S.reactions[gameId][targetId][k][S.player.id];await fbPut(path,null).catch(console.error);}else{S.reactions[gameId][targetId][k][S.player.id]=true;await fbPut(path,true).catch(console.error);}renderJogos();}
-function openReactionPicker(gameId,targetId){if(!S.player)return;const name=displayName(targetId);const el=document.createElement('div');el.id='modal';el.className='modal-overlay';el.innerHTML=`<div class="modal-box" style="max-width:360px"><div class="modal-pill"></div><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">${avatarHtml(targetId,'av-p2','width:34px;height:34px')}<div><div style="font-size:14px;font-weight:800">${escText(firstName(name))}</div><div style="font-size:12px;color:var(--text2)">Reagir ao palpite</div></div><button onclick="closeModal()" style="margin-left:auto;border:none;background:none;font-size:22px;color:var(--text3)">&times;</button></div>${reactionPickerHtml(gameId,targetId)}<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:10px">Toque no emoji para marcar ou tirar sua reação.</div></div>`;document.body.appendChild(el);el.addEventListener('click',e=>{if(e.target===el)closeModal();});}
+function openReactionPicker(gameId,targetId){if(!S.player)return;const name=displayName(targetId);const el=document.createElement('div');el.id='modal';el.className='modal-overlay';el.innerHTML=`<div class="modal-box" style="max-width:360px"><div class="modal-pill"></div><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">${avatarHtml(targetId,'av-p2','width:34px;height:34px')}<div><div style="font-size:14px;font-weight:800">${escText(firstName(name))}</div><div style="font-size:12px;color:var(--text2)">Reagir ao palpite</div></div><button onclick="closeModal()" style="margin-left:auto;border:none;background:none;font-size:22px;color:var(--text3)">&times;</button></div>${reactionPickerHtml(gameId,targetId)}<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:10px">Toque no emoji para marcar ou tirar sua reação.</div></div>`;document.body.appendChild(el);el.addEventListener('click',e=>{if(e.target===el)closeModal();});}
 async function chooseReaction(gameId,targetId,k){await toggleReaction(gameId,targetId,k);closeModal();}
 function publicPicksHtml(gameId,played){
   const picks=publicPicksFor(gameId).sort((a,b)=>playerNameById(a.id).localeCompare(playerNameById(b.id)));
@@ -695,7 +796,7 @@ function renderGameTools(){
   const teamOptions=teams.map(t=>`<option value="${escAttr(t)}" ${t===currentTeam?'selected':''}>${t}</option>`).join('');
   const sf=document.getElementById('site-filters');
   if(sf){
-    sf.innerHTML=`<div class="filter-tabs"><button class="filter-chip${gameFilter==='today'?' active':''}" onclick="setGameFilter('today')">Hoje</button><button class="filter-chip${gameFilter==='next'?' active':''}" onclick="setGameFilter('next')">Proximos</button><button class="filter-chip${gameFilter==='past'?' active':''}" onclick="setGameFilter('past')">Anteriores</button><button class="filter-chip${gameFilter==='all'?' active':''}" onclick="setGameFilter('all')">Todos</button></div><div class="filter-fields"><select aria-label="Escolher selecao" onchange="setTeamFilter(this.value)"><option value="">Todas selecoes</option>${teamOptions}</select><input type="date" value="${gameDateFilter}" onchange="setDateFilter(this.value)"><button class="standings-btn" onclick="openStandingsModal()">Classificacao</button></div>`;
+    sf.innerHTML=`<div class="filter-tabs"><button class="filter-chip${gameFilter==='today'?' active':''}" onclick="setGameFilter('today')">Hoje</button><button class="filter-chip${gameFilter==='next'?' active':''}" onclick="setGameFilter('next')">Próximos</button><button class="filter-chip${gameFilter==='past'?' active':''}" onclick="setGameFilter('past')">Anteriores</button><button class="filter-chip${gameFilter==='all'?' active':''}" onclick="setGameFilter('all')">Todos</button></div><div class="filter-fields"><select aria-label="Escolher seleção" onchange="setTeamFilter(this.value)"><option value="">Todas seleções</option>${teamOptions}</select><input type="date" value="${gameDateFilter}" onchange="setDateFilter(this.value)"><button class="standings-btn" onclick="openStandingsModal()">Classificação</button></div>`;
     sf.style.display='block';
   }
 }
@@ -717,7 +818,7 @@ function renderJogos(){
   let list=filterGamesBase();
   if(gameFilter==='today'&&!gameTeamFilter&&!gameDateFilter){
     const upcoming=GAMES.filter(g=>g.date!==todayISO()&&getGameDT(g)>nowAM()&&!S.oficiais[g.id]).sort((a,b)=>getGameDT(a)-getGameDT(b)).slice(0,8);
-    if(!list.length)html+=`<div class="empty-state">Nao tem jogo hoje. Olha os proximos logo abaixo.</div>`;
+    if(!list.length)html+=`<div class="empty-state">Não tem jogo hoje. Olha os próximos logo abaixo.</div>`;
     list=[...list,...upcoming];
   }
   if(!list.length)html+=`<div class="empty-state">Nenhum jogo encontrado com esse filtro.</div>`;
@@ -731,7 +832,7 @@ function computeGroupStandings(){
 }
 function openStandingsModal(){
   const standings=computeGroupStandings();const el=document.createElement('div');el.id='modal';el.className='modal-overlay';
-  el.innerHTML=`<div class="modal-box" style="max-width:760px"><div class="modal-pill"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:900">Classificacao dos grupos</div><button onclick="closeModal()" style="border:none;background:none;font-size:22px;color:var(--text3);cursor:pointer">&times;</button></div><div class="standings-grid">${GROUPS.map(gr=>`<div class="group-table"><div class="group-table-title">Grupo ${gr}</div><div class="group-row head"><span>#</span><span>Selecao</span><span>J</span><span>SG</span><span>GP</span><span>Pts</span></div>${(standings[gr]||[]).map((t,i)=>`<div class="group-row ${i<2?'qual':i===2?'third':''}"><strong>${i+1}</strong><div class="group-team"><span class="flag-ball" style="width:24px;height:24px">${flagHtml(t.team)}</span><span>${t.team}</span></div><span>${t.j}</span><span>${t.sg}</span><span>${t.gp}</span><strong>${t.p}</strong></div>`).join('')||'<div style="padding:12px;font-size:12px;color:var(--text2)">Sem jogos ainda.</div>'}</div>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:12px">Verde: classificados diretos. Laranja: candidato a melhor terceiro.</div></div>`;
+  el.innerHTML=`<div class="modal-box standings-modal"><div class="modal-pill"></div><div class="standings-titlebar"><div class="standings-title">Classificação dos grupos</div><button class="standings-close" onclick="closeModal()">&times;</button></div><div class="standings-grid">${GROUPS.map(gr=>`<div class="group-table"><div class="group-table-title">Grupo ${gr}</div><div class="group-row head"><span>#</span><span>Seleção</span><span>J</span><span>SG</span><span>GP</span><span>Pts</span></div>${(standings[gr]||[]).map((t,i)=>`<div class="group-row ${i<2?'qual':i===2?'third':''}"><strong>${i+1}</strong><div class="group-team"><span class="flag-ball" style="width:24px;height:24px">${flagHtml(t.team)}</span><span>${t.team}</span></div><span>${t.j}</span><span>${t.sg}</span><span>${t.gp}</span><strong>${t.p}</strong></div>`).join('')||'<div style="padding:12px;font-size:12px;color:var(--text2)">Sem jogos ainda.</div>'}</div>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:12px;flex-shrink:0">Verde: classificados diretos. Laranja: candidato a melhor terceiro.</div></div>`;
   document.body.appendChild(el);el.addEventListener('click',e=>{if(e.target===el)closeModal();});
 }
 function updateSubmitButton(id){const btn=document.getElementById('sb-'+id),h=document.getElementById('ph-'+id),a=document.getElementById('pa-'+id);if(!btn||!h||!a)return;const ok=h.value!==''&&a.value!=='';btn.disabled=!ok;btn.style.opacity=ok?'1':'.45';btn.textContent='Enviar palpite';btn.classList.remove('saved');}
@@ -828,8 +929,119 @@ async function renderAll(){renderJogos();if(S.tab==='ranking')renderRanking();if
 async function autoFetchMissingResults(){if(!S.player||!RESULT_API_URL)return;const due=GAMES.filter(g=>!S.oficiais[g.id]&&getStatus(g)==='finished').slice(0,3);for(const g of due)await fetchPlacar(g.id,true);}
 async function init(){const lp=localPlayer();if(lp){document.getElementById('player-name').value=lp.name||'';document.getElementById('player-email').value=lp.email||'';await setup(true);}}
 init();
-setInterval(async()=>{if(S.player){await syncFromFirebase().catch(()=>{});if(S.tab==='jogos')renderJogos();if(S.tab==='ranking')renderRanking();}},30000);
+setInterval(async()=>{if(S.player){await syncFromFirebase().catch(()=>{});if(S.tab==='jogos')renderJogos();if(S.tab==='ranking')renderRanking();checkNewResults();}},30000);
 setInterval(autoFetchMissingResults,AUTO_RESULT_CHECK_MINUTES*60000);
+
+// ── DARK MODE ──────────────────────────────────────────────
+function toggleDark(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const next=isDark?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('palpitei_theme',next);
+  document.getElementById('dark-btn').textContent=next==='dark'?'☀️':'🌙';
+}
+function initTheme(){
+  const saved=localStorage.getItem('palpitei_theme')||'light';
+  document.documentElement.setAttribute('data-theme',saved);
+  const btn=document.getElementById('dark-btn');
+  if(btn)btn.textContent=saved==='dark'?'☀️':'🌙';
+}
+initTheme();
+
+// ── TOAST ──────────────────────────────────────────────────
+function showToast(msg,type='',duration=4500){
+  const wrap=document.getElementById('toast-wrap');if(!wrap)return;
+  while(wrap.children.length>=1)wrap.firstElementChild.remove();
+  const t=document.createElement('div');
+  t.className='toast'+(type?' '+type:'');
+  t.innerHTML=`<span style="flex:1">${msg}</span><button class="toast-close" onclick="this.parentNode.remove()">×</button>`;
+  wrap.appendChild(t);
+  setTimeout(()=>{if(!t.isConnected)return;t.style.animation='toast-in .3s reverse forwards';setTimeout(()=>t.remove(),300);},duration);
+}
+
+// ── POINTS ANIMATION ──────────────────────────────────────
+function showPtsSplash(pts,gameLabel){
+  const el=document.getElementById('pts-splash');
+  const num=document.getElementById('pts-num');
+  const lbl=document.getElementById('pts-label');
+  if(!el||!num||!lbl)return;
+  if(pts===3){num.textContent='+3';num.style.color='var(--green)';lbl.textContent='🎯 Cravou!';lbl.style.color='var(--green)';}
+  else if(pts===1){num.textContent='+1';num.style.color='var(--blue)';lbl.textContent='✅ Vencedor certo';lbl.style.color='var(--blue)';}
+  else{num.textContent='+0';num.style.color='var(--text3)';lbl.textContent='❌ Errou';lbl.style.color='var(--text3)';}
+  el.classList.remove('show');
+  void el.offsetWidth; // force reflow
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),1000);
+}
+
+// ── BANNER AO ABRIR ────────────────────────────────────────
+function resultNoticeFor(id,o){
+  const g=GAMES.find(x=>x.id==id);if(!g)return null;
+  const pred=(S.allPalpites[S.player.id]||{})[id];
+  if(!isSubmittedPred(pred))return null;
+  const pts=pointsFor(pred,o);
+  const msg=pts===3?`🎯 Você cravou! ${g.home} ${o.h}×${o.a} ${g.away} — +3pts`:
+            pts===1?`✅ Vencedor certo! ${g.home} ${o.h}×${o.a} ${g.away} — +1pt`:
+            `Errou em ${g.home} ${o.h}×${o.a} ${g.away}`;
+  return {g,pts,msg,type:pts===3?'success':pts===1?'':'error'};
+}
+function notifyResult(id,o,delay=250){
+  const n=resultNoticeFor(id,o);if(!n)return;
+  showPtsSplash(n.pts,n.g.home+' × '+n.g.away);
+  setTimeout(()=>showToast(n.msg,n.type,5600),delay);
+}
+function latestOfficialEntries(onlyToday=false){
+  const today=todayISO();
+  return Object.entries(S.oficiais).map(([id,o])=>({id,o,g:GAMES.find(x=>x.id==id)}))
+    .filter(x=>x.g&&(!onlyToday||x.g.date===today))
+    .sort((a,b)=>getGameDT(b.g)-getGameDT(a.g));
+}
+function checkOpeningAlerts(){
+  if(!S.player)return;
+  const soon=GAMES.filter(g=>{
+    if(S.oficiais[g.id])return false;
+    const pred=(S.allPalpites[S.player.id]||{})[g.id];
+    if(isSubmittedPred(pred))return false;
+    const mins=(getGameDT(g)-nowAM())/60000;
+    return mins>0&&mins<=60;
+  }).sort((a,b)=>getGameDT(a)-getGameDT(b)).slice(0,2);
+  soon.forEach(g=>{
+    const mins=Math.ceil((getGameDT(g)-nowAM())/60000);
+    showToast(`⏰ Falta ${mins}min — ${g.home} × ${g.away} — você ainda não palpitou!`,'warning',7000);
+  });
+  const latestToday=latestOfficialEntries(true)[0];
+  if(latestToday)notifyResult(latestToday.id,latestToday.o,450);
+  _lastOficias={...S.oficiais};
+}
+
+let _lastOficias={};
+function checkNewResults(){
+  if(!S.player)return;
+  const today=todayISO();
+  const newOfs=Object.entries(S.oficiais)
+    .filter(([id])=>!_lastOficias[id])
+    .map(([id,o])=>({id,o,g:GAMES.find(x=>x.id==id)}))
+    .filter(x=>x.g&&x.g.date===today)
+    .sort((a,b)=>getGameDT(b.g)-getGameDT(a.g));
+  const latest=newOfs[0];
+  if(latest)notifyResult(latest.id,latest.o,350);
+  _lastOficias={...S.oficiais};
+}
+// ── VER QUEM REAGIU ────────────────────────────────────────
+function openReactionWhoModal(gameId,targetId,k){
+  const rtype=REACTION_TYPES.find(([rk])=>rk===k);
+  if(!rtype)return;
+  const [,emoji,label]=rtype;
+  const reactors=Object.keys(((( S.reactions||{})[gameId]||{})[targetId]||{})[k]||{});
+  if(!reactors.length)return;
+  const el=document.createElement('div');el.id='modal';el.className='modal-overlay';
+  let rows=reactors.map(id=>{
+    const name=displayName(id);
+    return `<div class="reaction-who-row">${avatarHtml(id,'av-p2','width:30px;height:30px')}<span style="font-size:13px;font-weight:700">${escText(firstName(name))}</span></div>`;
+  }).join('');
+  el.innerHTML=`<div class="modal-box" style="max-width:340px"><div class="modal-pill"></div><div class="reaction-who-head"><span class="reaction-who-emoji">${emoji}</span><div style="min-width:0;flex:1"><div class="reaction-who-count" style="font-size:13px;margin-top:0">${reactors.length} pessoa${reactors.length>1?'s':''}</div></div><button onclick="closeModal()" style="border:none;background:none;font-size:22px;color:var(--text3);cursor:pointer">&times;</button></div><div class="reaction-who-list">${rows}</div></div>`;
+  document.body.appendChild(el);el.addEventListener('click',e=>{if(e.target===el)closeModal();});
+}
 </script>
 </body>
 </html>
