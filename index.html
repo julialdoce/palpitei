@@ -955,77 +955,24 @@ function getMessaging(){if(!messagingSupported())return null;if(!firebase.apps.l
 async function savePushToken(token,enabled=true){if(!S.player||!token)return;const data={token,enabled,playerId:S.player.id,name:S.player.name||'',email:S.player.email||'',updatedAt:Date.now(),userAgent:navigator.userAgent||''};await fbPut('notificationTokens/'+S.player.id+'/'+pushTokenKey(token),data);localStorage.setItem('palpitei_fcm_token',token);}
 function bindForegroundNotifications(messaging){if(messagingForegroundBound)return;messagingForegroundBound=true;messaging.onMessage(payload=>{const n=payload.notification||{},data=payload.data||{};if(Notification.permission==='granted')new Notification(n.title||'Palpitei',{body:n.body||'Tem novidade no Palpitei.',icon:data.icon||'icon-192.png',badge:data.badge||'icon-192.png',tag:data.tag||'palpitei',data:{url:data.url||location.href}});});}
 async function enablePushNotifications(manual=true){
-  if(!S.player){
-    if(manual)alert('Entre no bolão antes de ativar notificações.');
-    return false;
-  }
-  if(!messagingSupported()){
-    if(manual)alert('Este navegador não suporta notificações web aqui.');
-    return false;
-  }
-
+  if(!S.player){if(manual)alert('Entre no bolão antes de ativar notificações.');return false;}
+  if(!messagingSupported()){if(manual)alert('Este navegador não suporta notificações web aqui.');return false;}
   let permission=Notification.permission;
-
-  if(!manual&&permission!=='granted'){
-    updateNotifyButton();
-    return false;
-  }
-
-  if(permission==='default'){
-    permission=await Notification.requestPermission();
-  }
-
-  if(permission!=='granted'){
-    localStorage.removeItem('palpitei_push_enabled');
-    updateNotifyButton();
-    if(manual)alert('As notificações estão bloqueadas no navegador.');
-    return false;
-  }
-
+  if(!manual&&permission!=='granted'){updateNotifyButton();return false;}
+  if(permission==='default')permission=await Notification.requestPermission();
+  if(permission!=='granted'){localStorage.removeItem('palpitei_push_enabled');updateNotifyButton();if(manual)alert('As notificações estão bloqueadas no navegador.');return false;}
   try{
-    const reg=await navigator.serviceWorker.register('/palpitei/firebase-messaging-sw.js',{
-      scope:'/palpitei/'
-    });
-
-    await navigator.serviceWorker.ready;
-
+    const reg=await navigator.serviceWorker.register('firebase-messaging-sw.js');
     const messaging=getMessaging();
-
-    const token=await messaging.getToken({
-      vapidKey:FCM_VAPID_KEY,
-      serviceWorkerRegistration:reg
-    });
-
+    const token=await messaging.getToken({vapidKey:FCM_VAPID_KEY,serviceWorkerRegistration:reg});
     if(!token)throw new Error('token vazio');
-
     await savePushToken(token,true);
-
     localStorage.setItem('palpitei_push_enabled','1');
     bindForegroundNotifications(messaging);
     updateNotifyButton();
-
-    if(manual){
-      alert('Notificações ativadas! Vou mandar um teste em 5 segundos.');
-
-      setTimeout(()=>{
-        navigator.serviceWorker.ready.then(reg=>{
-          reg.showNotification('Palpitei ⚽',{
-            body:'Teste funcionando! Agora o sininho ativou certinho.',
-            icon:'/palpitei/icon-192.png',
-            badge:'/palpitei/icon-192.png',
-            tag:'teste-palpitei'
-          });
-        });
-      },5000);
-    }
+    if(manual)alert('Notificações ativadas. Você receberá lembretes de palpites e avisos importantes do ranking.');
     return true;
-  }catch(e){
-    console.error(e);
-    localStorage.removeItem('palpitei_push_enabled');
-    updateNotifyButton();
-    if(manual)alert('Erro ao ativar notificações. Veja o Console/F12 para o motivo real.');
-    return false;
-  }
+  }catch(e){console.error(e);localStorage.removeItem('palpitei_push_enabled');updateNotifyButton();if(manual)alert('Não consegui ativar as notificações agora. Confira se o site está em HTTPS e tente de novo.');return false;}
 }
 async function disablePushNotifications(){const token=localStorage.getItem('palpitei_fcm_token');localStorage.removeItem('palpitei_push_enabled');updateNotifyButton();if(S.player&&token)await fbPatch('notificationTokens/'+S.player.id+'/'+pushTokenKey(token),{enabled:false,updatedAt:Date.now()}).catch(()=>{});}
 async function toggleReminders(){if(remindersEnabled())await disablePushNotifications();else await enablePushNotifications(true);}
