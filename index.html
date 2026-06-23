@@ -35,7 +35,7 @@
 [data-theme=dark] .game-card,[data-theme=dark] .card,[data-theme=dark] .public-picks,[data-theme=dark] .modal-box,[data-theme=dark] .setup-card,[data-theme=dark] .jersey-card{background:var(--surface2);border-color:var(--border)}
 [data-theme=dark] .bottom-nav{background:#121212;border-color:#303030;box-shadow:0 -10px 26px rgba(0,0,0,.5)}
 [data-theme=dark] input,[data-theme=dark] select,[data-theme=dark] textarea{background:#191919;color:var(--text);border-color:var(--border)}
-[data-theme=dark] .filter-chip,[data-theme=dark] .profile-initials,[data-theme=dark] .dark-toggle{background:#1D1D1D;color:var(--text2);border-color:#3B3B3B}
+[data-theme=dark] .filter-chip,[data-theme=dark] .profile-initials,[data-theme=dark] .notify-icon-btn,[data-theme=dark] .dark-toggle{background:#1D1D1D;color:var(--text2);border-color:#3B3B3B}
 [data-theme=dark] .filter-chip.active,[data-theme=dark] .standings-btn{background:var(--green);border-color:var(--green);color:#07130D}
 [data-theme=dark] .group-table{background:#1B1B1B;border-color:#343434}
 [data-theme=dark] .group-table-title,[data-theme=dark] .group-row.head{background:#242424;color:#C5C5C5}
@@ -134,8 +134,9 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 .filter-fields .standings-btn{height:36px;width:auto;margin:0;padding:0 14px;border:1.5px solid var(--green);background:var(--green);color:#fff;border-radius:9px;font-size:12px;font-weight:700;white-space:nowrap;font-family:inherit;cursor:pointer;transition:background .15s;flex-shrink:0}
 .filter-fields .standings-btn:hover{background:var(--green-d);border-color:var(--green-d)}
 .header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.profile-initials,.dark-toggle{border:1.5px solid var(--border);background:var(--surface);color:var(--text2);border-radius:999px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;font-family:'Syne',sans-serif;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.04)}
-.dark-toggle{font-family:'DM Sans',sans-serif;font-size:15px}
+.profile-initials,.notify-icon-btn,.dark-toggle{border:1.5px solid var(--border);background:var(--surface);color:var(--text2);border-radius:999px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;font-family:'Syne',sans-serif;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.notify-icon-btn,.dark-toggle{font-family:'DM Sans',sans-serif;font-size:15px}
+.notify-icon-btn.on{background:var(--green-pale);border-color:var(--green);color:var(--green-d)}
 @media(max-width:540px){
   .filter-chip{padding:0 11px;font-size:11px;height:30px}
   .filter-fields{grid-template-columns:1fr 1fr}
@@ -144,7 +145,7 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
   .filter-fields .standings-btn{grid-column:1 / -1;width:100%;height:36px}
   #last-update{display:none}
   .profile-pill{padding:5px 10px;font-size:11px}
-  .profile-initials,.dark-toggle{width:32px;height:32px}
+  .profile-initials,.notify-icon-btn,.dark-toggle{width:32px;height:32px}
 }
 
 /* sem mais sticky — o antigo .game-tools virou parte do header */
@@ -347,7 +348,7 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
   <div class="site-header">
     <div class="site-header-top">
       <span class="page-title">Palpi<em>tei</em></span>
-      <div class="header-right"><span id="last-update"></span><div class="header-actions"><button class="profile-initials" id="profile-btn" onclick="openProfile(S.player&&S.player.id)" title="Meu perfil" aria-label="Meu perfil">--</button><button class="dark-toggle" id="dark-btn" onclick="toggleDark()" title="Modo escuro" aria-label="Alternar modo escuro">🌙</button></div></div>
+      <div class="header-right"><span id="last-update"></span><div class="header-actions"><button class="profile-initials" id="profile-btn" onclick="openProfile(S.player&&S.player.id)" title="Meu perfil" aria-label="Meu perfil">--</button><button class="notify-icon-btn" id="notify-btn" onclick="toggleReminders()" title="Ativar notificações" aria-label="Ativar notificações">🔔</button><button class="dark-toggle" id="dark-btn" onclick="toggleDark()" title="Modo escuro" aria-label="Alternar modo escuro">🌙</button></div></div>
     </div>
     <div class="site-header-filters" id="site-filters">
       <!-- preenchido por renderGameTools() -->
@@ -396,6 +397,8 @@ input[type=text]:focus,input[type=email]:focus{outline:none;border-color:var(--g
 </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-messaging-compat.js"></script>
 <script>
 const GAMES=[
   {id:1,date:"2026-06-11",time:"16h",group:"A",home:"México",away:"África do Sul",city:"Cidade do México"},
@@ -625,6 +628,7 @@ const GROUPS=["A","B","C","D","E","F","G","H","I","J","K","L"];
 
 const FIREBASE_DB="https://palpitei-492b0-default-rtdb.firebaseio.com";
 const FIREBASE_CONFIG={apiKey:"AIzaSyD3ZovcnnW3E5NeKGsLJUGyRFUUBd1mn7Y",authDomain:"palpitei-492b0.firebaseapp.com",projectId:"palpitei-492b0",storageBucket:"palpitei-492b0.firebasestorage.app",messagingSenderId:"354175925377",appId:"1:354175925377:web:5f297e355b7831c4c86180",measurementId:"G-PWZPNCLQMR"};
+const FCM_VAPID_KEY="BGLfJdUtnaq8-mAC_v8PfAFkfwkf2WU9lX7Q3_c44fxgjTybwdKLsvFIz29481g3FA0tV8QXc5Q_8uoiB7JUmbc";
 const RESULT_API_URL="";
 const AUTO_RESULT_CHECK_MINUTES=15;
 const ADMIN_EMAILS=["julialdoce@gmail.com"];
@@ -634,6 +638,7 @@ let gameFilter='today';
 let gameTeamFilter='';
 let gameDateFilter='';
 let saveTimer=null;
+let messagingForegroundBound=false;
 function fbUrl(path){return FIREBASE_DB+'/'+path+'.json';}
 async function fbGet(path){const r=await fetch(fbUrl(path));if(!r.ok)throw new Error('Firebase GET '+path);return await r.json();}
 async function fbPut(path,value){const r=await fetch(fbUrl(path),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(value)});if(!r.ok)throw new Error('Firebase PUT '+path);return await r.json();}
@@ -684,7 +689,7 @@ function leaderId(){const rows=rankingRows();return rows[0]&&rows[0].id;}
 function playerStats(id){const ps=(S.allPalpites||{})[id]||{};let exact=0,winner=0,errors=0,streak=0;const played=GAMES.filter(g=>S.oficiais[g.id]).sort((a,b)=>getGameDT(a)-getGameDT(b));played.forEach(g=>{const pred=ps[g.id],sent=isSubmittedPred(pred),pts=pointsFor(pred,S.oficiais[g.id]);if(sent&&pts===3)exact++;else if(sent&&pts===1)winner++;else if(sent&&pts===0)errors++;});for(let i=played.length-1;i>=0;i--){const pred=ps[played[i].id],pts=pointsFor(pred,S.oficiais[played[i].id]);if(isSubmittedPred(pred)&&pts>0)streak++;else break;}const rows=rankingRows();return{pts:totalPtsFor(id),exact,winner,errors,position:Math.max(1,rows.findIndex(r=>r.id===id)+1),streak};}
 function totalPtsFor(playerId){let t=0;const ps=(S.allPalpites||{})[playerId]||{};GAMES.forEach(g=>{const o=S.oficiais[g.id];if(o)t+=pointsFor(ps[g.id],o);});return t;}
 
-async function setup(auto=false){const name=(document.getElementById('player-name').value||'').trim();const email=(document.getElementById('player-email').value||'').trim().toLowerCase();if(!name||!email||!email.includes('@')){showSetupStatus('Coloca seu nome e um email valido para entrar.',true);return;}const id=playerIdFromEmail(email);S.player={id,name,email};saveLocalPlayer();showSetupStatus('Conectando no Firebase...');try{await fbPatch('players/'+id,{name,updatedAt:Date.now()});await syncFromFirebase();document.getElementById('scr-setup').classList.remove('active');document.getElementById('scr-main').classList.add('active');document.getElementById('last-update').textContent='Conectado como '+firstName(displayName(id));const pb=document.getElementById('profile-btn');if(pb)pb.textContent=initials(displayName(id)||name);renderAll();autoFetchMissingResults();updateHeaderActions();}catch(e){showSetupStatus('Nao consegui conectar. Confere as regras do Realtime Database.',true);console.error(e);}}
+async function setup(auto=false){const name=(document.getElementById('player-name').value||'').trim();const email=(document.getElementById('player-email').value||'').trim().toLowerCase();if(!name||!email||!email.includes('@')){showSetupStatus('Coloca seu nome e um email valido para entrar.',true);return;}const id=playerIdFromEmail(email);S.player={id,name,email};saveLocalPlayer();showSetupStatus('Conectando no Firebase...');try{await fbPatch('players/'+id,{name,updatedAt:Date.now()});await syncFromFirebase();document.getElementById('scr-setup').classList.remove('active');document.getElementById('scr-main').classList.add('active');document.getElementById('last-update').textContent='Conectado como '+firstName(displayName(id));const pb=document.getElementById('profile-btn');if(pb)pb.textContent=initials(displayName(id)||name);renderAll();autoFetchMissingResults();updateHeaderActions();if(remindersEnabled())enablePushNotifications(false);}catch(e){showSetupStatus('Nao consegui conectar. Confere as regras do Realtime Database.',true);console.error(e);}}
 
 function showTab(t){S.tab=t;['jogos','chave','camisas','ranking'].forEach(v=>{document.getElementById('view-'+v).style.display=v===t?'block':'none';document.getElementById('nb-'+v).classList.toggle('active',v===t);});
   // mostra filtros apenas na aba jogos
@@ -938,7 +943,39 @@ async function autoFetchMissingResults(){if(!S.player||!RESULT_API_URL)return;co
 function updateHeaderActions(){
   const btn=document.getElementById('dark-btn');
   if(btn)btn.style.display=(S.tab==='jogos'||S.tab==='ranking')?'flex':'none';
+  const notify=document.getElementById('notify-btn');
+  if(notify)notify.style.display=S.tab==='jogos'?'flex':'none';
+  updateNotifyButton();
 }
+function remindersEnabled(){return localStorage.getItem('palpitei_push_enabled')==='1';}
+function pushTokenKey(token){return btoa(token).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function messagingSupported(){return !!(window.firebase&&firebase.messaging&&'serviceWorker' in navigator&&'Notification' in window&&window.isSecureContext);}
+function updateNotifyButton(){const btn=document.getElementById('notify-btn');if(!btn)return;const on=remindersEnabled()&&Notification.permission==='granted';btn.classList.toggle('on',on);btn.title=on?'Notificações ativadas':'Ativar notificações';btn.setAttribute('aria-label',btn.title);}
+function getMessaging(){if(!messagingSupported())return null;if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);return firebase.messaging();}
+async function savePushToken(token,enabled=true){if(!S.player||!token)return;const data={token,enabled,playerId:S.player.id,name:S.player.name||'',email:S.player.email||'',updatedAt:Date.now(),userAgent:navigator.userAgent||''};await fbPut('notificationTokens/'+S.player.id+'/'+pushTokenKey(token),data);localStorage.setItem('palpitei_fcm_token',token);}
+function bindForegroundNotifications(messaging){if(messagingForegroundBound)return;messagingForegroundBound=true;messaging.onMessage(payload=>{const n=payload.notification||{},data=payload.data||{};if(Notification.permission==='granted')new Notification(n.title||'Palpitei',{body:n.body||'Tem novidade no Palpitei.',icon:data.icon||'icon-192.png',badge:data.badge||'icon-192.png',tag:data.tag||'palpitei',data:{url:data.url||location.href}});});}
+async function enablePushNotifications(manual=true){
+  if(!S.player){if(manual)alert('Entre no bolão antes de ativar notificações.');return false;}
+  if(!messagingSupported()){if(manual)alert('Este navegador não suporta notificações web aqui.');return false;}
+  let permission=Notification.permission;
+  if(!manual&&permission!=='granted'){updateNotifyButton();return false;}
+  if(permission==='default')permission=await Notification.requestPermission();
+  if(permission!=='granted'){localStorage.removeItem('palpitei_push_enabled');updateNotifyButton();if(manual)alert('As notificações estão bloqueadas no navegador.');return false;}
+  try{
+    const reg=await navigator.serviceWorker.register('firebase-messaging-sw.js');
+    const messaging=getMessaging();
+    const token=await messaging.getToken({vapidKey:FCM_VAPID_KEY,serviceWorkerRegistration:reg});
+    if(!token)throw new Error('token vazio');
+    await savePushToken(token,true);
+    localStorage.setItem('palpitei_push_enabled','1');
+    bindForegroundNotifications(messaging);
+    updateNotifyButton();
+    if(manual)alert('Notificações ativadas. Você receberá lembretes de palpites e avisos importantes do ranking.');
+    return true;
+  }catch(e){console.error(e);localStorage.removeItem('palpitei_push_enabled');updateNotifyButton();if(manual)alert('Não consegui ativar as notificações agora. Confira se o site está em HTTPS e tente de novo.');return false;}
+}
+async function disablePushNotifications(){const token=localStorage.getItem('palpitei_fcm_token');localStorage.removeItem('palpitei_push_enabled');updateNotifyButton();if(S.player&&token)await fbPatch('notificationTokens/'+S.player.id+'/'+pushTokenKey(token),{enabled:false,updatedAt:Date.now()}).catch(()=>{});}
+async function toggleReminders(){if(remindersEnabled())await disablePushNotifications();else await enablePushNotifications(true);}
 function toggleDark(){
   const isDark=document.documentElement.getAttribute('data-theme')==='dark';
   const next=isDark?'light':'dark';
